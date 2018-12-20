@@ -1,0 +1,104 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+#include<ctype.h>
+
+
+int main(void)
+{
+    char *card[13]= {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
+    char *ccard[13]= {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
+
+    int c;
+    int p=0;
+    int cc;
+    int cp;
+
+    char conti= 'Y';
+    srand(time(NULL));
+    printf("Game:Black Jack\n\n");
+    printf("Press the Enter key starts the game\n");
+
+    getchar();
+    printf("Add card? (Y/N)?\n");
+    conti=toupper(getchar());
+    if(conti=='Y')
+    {
+        int A=0;
+        c=rand()%13;
+
+        printf("Your card is :%s\n",card[c]);
+
+        if(c==10||c==11||c==12)
+        {
+            p=p+10;
+        }
+        else if(c==0)
+        {
+            p=p+10;
+            A=A+1;
+        }
+        else
+        {
+            p=p+c+1;
+        }
+        printf("Point is :%d\n",p);
+    }
+    while(conti=='Y')
+    {
+        getchar();
+        printf("Add card? (Y/N)?\n");
+        conti=toupper(getchar());
+        if(conti=='Y')
+        {
+            int A=0;
+            c=rand()%13;
+
+            printf("Your card is :%s\n",card[c]);
+
+            if(c==10||c==11||c==12)
+            {
+                p=p+10;
+            }
+            else if(c==0)
+            {
+                p=p+10;
+                A=A+1;
+            }
+            else
+            {
+                p=p+c+1;
+            }
+            printf("Point is :%d\n",p);
+            if(p>=21)
+            {
+                if(A>0)
+                {
+                    p=p-9;
+                    printf("\n");
+                    printf("Because A can be worth one or eleven.\n\n");
+                    printf("Your point is %d\n",p);
+                    //printf("%d",A);
+                }
+                else
+                {
+                    //printf("%d",A);
+                    printf("You lost!!\n");
+                    break;
+
+                }
+
+            }
+        }
+
+
+    }
+
+    if(conti=='N')
+    {
+
+    }
+
+
+
+}
