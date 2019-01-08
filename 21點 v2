@@ -1,0 +1,215 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+#include<ctype.h>
+
+
+
+int main(void)
+{
+    int Conti=1;
+    int win=0,comwin=0,push=0;
+    printf("Game:Black Jack\n\n");
+    printf("----------Game rules----------\n\n");
+    printf("2-10按牌面點數計算，J、Q、K 每張為10點，A則可記為1點或為11點\n");
+    printf("莊家(電腦)發給自己1張明牌1張暗牌\n");
+    printf("莊家發給玩家2張明牌\n");
+    printf("玩家可以選擇是否繼續加牌，但超過21點則輸掉遊戲\n");
+    printf("莊家在取得17點之前必須加牌，但超過21點則玩家贏得遊戲\n");
+    printf("點數較大的取勝\n");
+    printf("點數相同則平手(Push)\n\n\n");
+    while(Conti==1)
+    {
+        char *card[13]= {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
+        //const char flower[4]={'\3','\4','\5','\6'};
+
+        int c,c2;
+        int p=0;
+        int comc;
+        int comp=0;
+        int A=0,comA=0;
+        int conti=1;
+        srand(time(NULL));
+
+        printf("Game start[1] \n");
+        scanf("%d",&conti);
+        printf("\n----------------Banker---------------- \n");
+
+        if(conti==1)
+        {
+            c=rand()%13;
+            c2=rand()%13;
+            comc=rand()%13;
+            printf("Banker's cards are :%s , [?] \n\n",card[comc]);
+
+            printf("-----------------You------------------ \n");
+
+            printf("Your cards are :%s , %s\n",card[c],card[c2]);
+
+
+            if(c==10||c==11||c==12)
+            {
+                p=p+10;
+            }
+            else if(c==0)
+            {
+                p=p+11;
+                A=A+1;
+            }
+            else
+            {
+                p=p+c+1;
+            }
+            if(c2==10||c2==11||c2==12)
+            {
+                p=p+10;
+            }
+            else if(c2==0)
+            {
+                p=p+11;
+                A=A+1;
+            }
+            else
+            {
+                p=p+c2+1;
+            }
+            printf("Point is :%d\n",p);
+
+            while(conti==1)
+            {
+                printf("Add card?  ( Yes[1] , No[0] )\n");
+                scanf("%d",&conti);
+
+                if(conti==1)
+                {
+                    //printf("%d\n\n",p);
+
+                    c=rand()%13;
+
+                    printf("Your card is :%s\n",card[c]);
+
+                    if(c==10||c==11||c==12)
+                    {
+                        p=p+10;
+                    }
+                    else if(c==0)
+                    {
+                        p=p+11;
+                        A=A+1;
+                    }
+                    else
+                    {
+                        p=p+c+1;
+                    }
+                    printf("Point is :%d\n",p);
+
+                    if(p>21)
+                    {
+                        if(A>0)
+                        {
+                            A=A-1;
+                            p=p-10;
+                            printf("\n");
+                            printf("Because A can be worth one or eleven.\n\n");
+                            printf("Your point is %d\n",p);
+                            //printf("%d",A);
+                        }
+                        else
+                        {
+                            //printf("%d",A);
+                            printf("\n\n-------You lose!-------\n-------Game Over-------\n");
+                            conti=2;
+                            comwin++;
+                            break;
+
+                        }
+
+                    }
+                }
+
+
+            }
+
+            if(conti==0)
+            {
+                printf("\n----------------Banker---------------- \n");
+                do
+                {
+
+                    if(comc==10||comc==11||comc==12)
+                    {
+                        comp=comp+10;
+                    }
+                    else if(comc==0)
+                    {
+                        comp=comp+11;
+                        comA=comA+1;
+                    }
+                    else
+                    {
+                        comp=comp+comc+1;
+                    }
+
+                    if(comp>21)
+                    {
+                        if(comA>0)
+                        {
+                            comA=comA-1;
+                            comp=comp-10;
+
+                            //printf("%d",comA);
+                        }
+                        /*else
+                        {
+                            //printf("%d",comA);
+                            printf("\n\n-------You Win--------\n-------Game Over-------\n");
+                            conti=2;
+                            break;
+
+                        }*/
+
+                    }
+                    printf("Banker's card is :%s\n",card[comc]);
+                    comc=rand()%13;
+                }
+                while(comp<17);
+                printf("Banker's point is :%d\n",comp);
+                if(comp>21)
+                {
+                    printf("\n\n-------You Win--------\n-------Game Over-------\n");
+                    win++;
+                }
+                else
+                {
+                    if(p>comp)
+                    {
+                        printf("Your point>Banker's point\n");
+                        printf("\n\n-------You Win--------\n-------Game Over-------\n");
+                        win++;
+                    }
+                    else if(p<comp)
+                    {
+                        printf("Your point<Banker's point\n");
+                        printf("\n\n-------You lose-------\n-------Game Over-------\n");
+                        comwin++;
+                    }
+                    else
+                    {
+                        printf("Your point=Banker's point\n");
+                        printf("-------Push-------\n");
+                        push++;
+                    }
+                }
+
+            }
+        }
+        printf("\n\nYou win %d time(s)\nBanker win %d time(s)\nPush %d time(s)",win,comwin,push);
+
+        printf("\n\n\nTry again?  ( Yes[1] , No[0] )\n");
+        scanf("%d",&Conti);
+        printf("\n\n\n");
+        printf("--------------------------------------------------------------------\n");
+    }
+
+
+}
